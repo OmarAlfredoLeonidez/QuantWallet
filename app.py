@@ -6,6 +6,27 @@ from xrpl.models.transactions import Payment
 from xrpl.transaction import submit_and_wait
 from xrpl.utils import xrp_to_drops
 
+st.subheader("Value Proposition: QuantWallet vs Standard Explorers")
+col1, col2 = st.columns(2)
+
+with col1:
+    st.info("**Standard Explorers (e.g. XRP Scan)**")
+    st.markdown("""
+    * Displays Gross Balances.
+    * Shows raw transaction history.
+    * No reserve diagnostics.
+    * Fails to prevent `tecUNFUNDED_PAYMENT`.
+    """)
+
+with col2:
+    st.success("**QuantWallet (Risk Engine)**")
+    st.markdown("""
+    * **Calculates Real Available Liquidity.**
+    * **Quantitative risk diagnostics.**
+    * **Pre-transaction validation.**
+    * **Prevents failed write operations.**
+    """)
+
 
 # 1. General Application Configuration
 
@@ -102,7 +123,7 @@ with st.expander("Open Send Panel (Write Operation)"):
                         account=mi_billetera.classic_address,
                         amount=xrp_to_drops(amount_xrp),
                         destination=destination_address,
-                        source_tag=2606270001  # <--- Agrega esta línea exacta
+                        source_tag=2606270001
                     )
 
                     respuesta = submit_and_wait(transaccion, testnet_client, mi_billetera)
